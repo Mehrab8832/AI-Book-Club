@@ -20,15 +20,20 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     
-    - name: Upgrade pip, setuptools, and wheel  # Updated Step
+    - name: Upgrade pip, setuptools, and wheel
       run: |
-        python -m pip install --upgrade pip setuptools wheel  # Added setuptools and wheel
+        python -m pip install --upgrade pip setuptools wheel
     
-    - name: Install Dependencies  # Updated Step
+    - name: Ensure wheel is installed  # New Step
       run: |
-        pip install --use-pep517 -r requirements.txt  # Added --use-pep517 flag
+        python -m pip install wheel
+    
+    - name: Install Dependencies
+      run: |
+        pip install --use-pep517 -r requirements.txt
     
     - name: Run Tests
       run: |
         python manage.py test
+
 
